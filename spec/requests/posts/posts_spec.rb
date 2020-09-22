@@ -26,4 +26,26 @@ describe 'Posts list' do
       expect(response.body).to include(posted.description)
     end
   end
+
+  context 'create action' do
+    it 'successfully create post' do
+      post_params = attributes_for(:post)
+
+      post '/api/v1/posts', params: {post: post_params}
+
+      expect(response.status).to eq(201)
+      expect(response.body).to include(post_params[:title])
+      expect(response.body).to include(post_params[:description])
+    end
+
+    it 'failed to  create post' do
+      post_params = {title: '', description: ''}
+
+      post '/api/v1/posts', params: {post: post_params}
+
+      expect(response.status).to eq(422)
+      expect(response.body).to include("Title can't be blank")
+      expect(response.body).to include("Description can't be blank")
+    end
+  end
 end
