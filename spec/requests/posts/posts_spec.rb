@@ -14,4 +14,16 @@ describe 'Posts list' do
       expect(response.body).to include(posts[1].description)
     end
   end
+
+  context 'show action' do
+    it 'successfully render post details' do
+      posted = create(:post)
+
+      get "/api/v1/posts/#{posted.id}"
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include(posted.title)
+      expect(response.body).to include(posted.description)
+    end
+  end
 end
