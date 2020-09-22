@@ -83,4 +83,12 @@ describe 'Posts list' do
       expect(Post.count).to eq(0)
     end
   end
+
+  context 'record not found' do
+    it 'return status 404' do
+      get '/api/v1/posts/000'
+
+      expect(response.status).to eq(404)
+    end
+  end
 end

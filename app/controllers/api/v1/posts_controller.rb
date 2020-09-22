@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ActionController::API
-  before_action :find_post, only: [:show, :update, :destroy]
+  before_action :find_post, only: [:update, :destroy]
 
   def index
     @posts = Post.all
@@ -8,7 +8,12 @@ class Api::V1::PostsController < ActionController::API
   end
 
   def show
+    @post = Post.find(params[:id])
+
     render json: @post, status: :ok
+
+  rescue ActiveRecord::RecordNotFound
+    render json: '', status: :not_found
   end
 
   def create
