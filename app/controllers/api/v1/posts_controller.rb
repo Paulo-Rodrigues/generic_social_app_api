@@ -1,4 +1,6 @@
 class Api::V1::PostsController < ActionController::API
+  before_action :find_post, only: [:show, :update, :destroy]
+
   def index
     @posts = Post.all
 
@@ -6,8 +8,6 @@ class Api::V1::PostsController < ActionController::API
   end
 
   def show
-    @post = Post.find(params[:id])
-
     render json: @post, status: :ok
   end
 
@@ -22,7 +22,6 @@ class Api::V1::PostsController < ActionController::API
   end
 
   def update
-    @post = Post.find(params[:id])
     
     if @post.update(post_params)
       render json: @post, status: :ok
@@ -32,12 +31,15 @@ class Api::V1::PostsController < ActionController::API
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     render json: {head: :no_content}, status: :no_content
   end
 
   private
+
+  def find_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:title, :description)
