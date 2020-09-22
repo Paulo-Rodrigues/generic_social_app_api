@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Posts list' do
-  context 'index action' do
+  context 'GET /api/v1/posts -> index action' do
     it 'successfully render json list' do
       posts = create_list(:post, 2)
 
@@ -15,7 +15,7 @@ describe 'Posts list' do
     end
   end
 
-  context 'show action' do
+  context 'GET /api/v1/post/id -> show action' do
     it 'successfully render post details' do
       posted = create(:post)
 
@@ -27,7 +27,7 @@ describe 'Posts list' do
     end
   end
 
-  context 'create action' do
+  context 'POST /api/v1/posts ->create action' do
     it 'successfully create post' do
       post_params = attributes_for(:post)
 
@@ -49,7 +49,7 @@ describe 'Posts list' do
     end
   end
 
-  context 'update action' do
+  context 'PUT /api/v1/posts/id -> update action' do
     it 'successfully update post' do
       posted = create(:post)
       updated_params = {title: 'Other title', description: 'Other description'}
@@ -73,7 +73,7 @@ describe 'Posts list' do
     end
   end
 
-  context 'delete action' do
+  context 'DELETE /api/v1/posts/id -> delete action' do
     it 'successfully delete post' do
       posted = create(:post)
 
