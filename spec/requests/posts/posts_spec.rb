@@ -72,4 +72,15 @@ describe 'Posts list' do
       expect(response.body).to include("Description can't be blank")
     end
   end
+
+  context 'delete action' do
+    it 'successfully delete post' do
+      posted = create(:post)
+
+      delete "/api/v1/posts/#{posted.id}"
+
+      expect(response.status).to eq(204)
+      expect(Post.count).to eq(0)
+    end
+  end
 end

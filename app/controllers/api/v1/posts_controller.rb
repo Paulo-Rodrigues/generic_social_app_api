@@ -31,6 +31,12 @@ class Api::V1::PostsController < ActionController::API
     end
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    render json: {head: :no_content}, status: :no_content
+  end
+
   private
 
   def post_params
